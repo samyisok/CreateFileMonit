@@ -41,6 +41,7 @@
             this.listBoxFolders = new System.Windows.Forms.ListBox();
             this.addFolderButton = new System.Windows.Forms.Button();
             this.DeleteFolderButton = new System.Windows.Forms.Button();
+            this.clearBox = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -139,11 +140,22 @@
             this.DeleteFolderButton.UseVisualStyleBackColor = true;
             this.DeleteFolderButton.Click += new System.EventHandler(this.DeleteFolderButton_Click);
             // 
+            // clearBox
+            // 
+            this.clearBox.Location = new System.Drawing.Point(94, 627);
+            this.clearBox.Name = "clearBox";
+            this.clearBox.Size = new System.Drawing.Size(75, 23);
+            this.clearBox.TabIndex = 10;
+            this.clearBox.Text = "Clear";
+            this.clearBox.UseVisualStyleBackColor = true;
+            this.clearBox.Click += new System.EventHandler(this.clearBox_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1327, 671);
+            this.Controls.Add(this.clearBox);
             this.Controls.Add(this.DeleteFolderButton);
             this.Controls.Add(this.addFolderButton);
             this.Controls.Add(this.listBoxFolders);
@@ -177,6 +189,7 @@
         private System.Windows.Forms.ListBox listBoxFolders;
         private System.Windows.Forms.Button addFolderButton;
         private System.Windows.Forms.Button DeleteFolderButton;
+        private System.Windows.Forms.Button clearBox;
     }
 }
 

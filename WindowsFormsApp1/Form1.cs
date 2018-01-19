@@ -12,6 +12,7 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace WindowsFormsApp1
 {
@@ -29,16 +30,18 @@ namespace WindowsFormsApp1
 
         public void fix( String var, DateTime dateTime)
         {
-            Console.WriteLine(var);
-            Console.WriteLine("alaram");
+            Console.WriteLine("alarm1");
+            Console.WriteLine(lastString);
             if (var != null && var != "" && !listBoxEx.Items.Contains(System.IO.Path.GetExtension(var)))
             {
-                if (lastString.Equals(var)) { //do nothing
+                if (lastString.Equals(var)) { 
+                //do nothing
                 }
                 else
                 {
+                    Console.WriteLine("ALARM2");
                     textBox1.Text += var + Environment.NewLine;
-                    lastString = var + dateTime.ToShortTimeString();
+                    lastString = var;
                     notifyIcon1_balloon(var, "Update ");
                 }
             }
@@ -114,12 +117,22 @@ namespace WindowsFormsApp1
         }
 
 
-        private void notifyIcon1_balloon(String text, String title)
+        private void notifyIcon1_balloon(String folder, String title)
         {
             notifyIcon1.BalloonTipIcon = ToolTipIcon.Info;
-            notifyIcon1.BalloonTipText = text;
+            notifyIcon1.BalloonTipText = folder;
             notifyIcon1.BalloonTipTitle = title;
-            notifyIcon1.ShowBalloonTip(500);
+            Console.WriteLine("BALLOON");
+            notifyIcon1.BalloonTipClicked += NotifyIcon1_BalloonTipClicked;
+            notifyIcon1.ShowBalloonTip(1500);
+        }
+
+        private void NotifyIcon1_BalloonTipClicked(object sender, EventArgs e)
+        {
+            Console.WriteLine("CLICKED");
+            Process.Start("explorer.exe", "/select, " + Path.GetFullPath(notifyIcon1.BalloonTipText));
+            notifyIcon1.BalloonTipClicked -= NotifyIcon1_BalloonTipClicked;
+   
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -185,6 +198,11 @@ namespace WindowsFormsApp1
             AraMonitoring.Properties.Settings.Default.folders = output;
             AraMonitoring.Properties.Settings.Default.Save();
             System.Console.WriteLine(output);
+        }
+
+        private void clearBox_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = "";
         }
     }
 }
